@@ -2,13 +2,21 @@ use chrono::{DateTime, Utc};
 use futures_util::{SinkExt, StreamExt};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
+use std::io::{self, Write};
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 use tokio::sync::mpsc;
 use tokio::time::interval;
 use tokio_tungstenite::{connect_async, tungstenite::Message};
-use tracing::{error, info, warn};
+
+// Simple logging macro that flushes stdout
+macro_rules! log {
+    ($($arg:tt)*) => {{
+        println!($($arg)*);
+        let _ = io::stdout().flush();
+    }};
+}
 
 // ============================================================================
 // Configuration
@@ -131,24 +139,15 @@ struct NewHeadResult {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Initialize logging
-    tracing_subscriber::fmt()
-        .with_env_filter(
-            tracing_subscriber::EnvFilter::from_default_env()
-                .add_directive("latency_auditor=info".parse().unwrap()),
-        )
-        .json()
-        .init();
-
     dotenv::dotenv().ok();
 
     let wss_url = std::env::var("RPC_WSS_URL")
-        .expect("RPC_WSS_URL must be set (e.g., wss://base-mainnet.g.alchemy.com/v2/YOUR_KEY)");
+        .expect("RPC_WSS_URL must be set (e.g., wss://lb.drpc.org/ogws?network=base&dkey=YOUR_KEY)");
 
-    info!("🚀 Latency Auditor Starting");
-    info!("📡 Target RPC: {}", mask_api_key(&wss_url));
-    info!("⏱️  Test Duration: {} seconds", TEST_DURATION_SECS);
-    info!("🔄 Ping Interval: {}ms", PING_INTERVAL_MS);
+    log!("🚀 Latency Auditor Starting");
+    log!("📡 Target RPC: {}", mask_api_key(&wss_url));
+    log!("⏱️  Test Duration: {} seconds", TEST_DURATION_SECS);
+    log!("🔄 Ping Interval: {}ms", PING_INTERVAL_MS);
 
     let running = Arc::new(AtomicBool::new(true));
     let test_start = Instant::now();
@@ -163,7 +162,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let ping_url = wss_url.clone();
     let _ping_handle = tokio::spawn(async move {
         if let Err(e) = run_ping_loop(ping_url, ping_tx, ping_running).await {
-            error!("Ping loop error: {}", e);
+            log!("❌ Ping loop error: {}", e);
         }
     });
 
@@ -172,7 +171,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let block_url = wss_url.clone();
     let _block_handle = tokio::spawn(async move {
         if let Err(e) = run_block_subscription(block_url, block_tx, block_running).await {
-            error!("Block subscription error: {}", e);
+            log!("❌ Block subscription error: {}", e);
         }
     });
 
@@ -197,7 +196,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 ping_results.push(ping);
             }
             Some(block) = block_rx.recv() => {
-                info!("📦 Block {} arrived", block.block_number);
+                log!("📦 Block {} arrived", block.block_number);
                 block_results.push(block);
             }
             Some(cpu) = cpu_rx.recv() => {
@@ -214,7 +213,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 if last_report.elapsed() >= report_interval {
                     let elapsed = test_start.elapsed().as_secs();
                     let remaining = TEST_DURATION_SECS.saturating_sub(elapsed);
-                    info!(
+                    log!(
                         "📊 Progress: {}s elapsed, {}s remaining | Pings: {} | Blocks: {} | CPU samples: {}",
                         elapsed, remaining, ping_results.len(), block_results.len(), cpu_results.len()
                     );
@@ -224,7 +223,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    info!("⏹️  Test complete, collecting final results...");
+    log!("⏹️  Test complete, collecting final results...");
 
     // Give tasks time to finish
     tokio::time::sleep(Duration::from_secs(2)).await;
@@ -244,31 +243,31 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let report = generate_report(&ping_results, &block_results, &cpu_results);
 
     // Output final report
-    info!("═══════════════════════════════════════════════════════════════");
-    info!("                    LATENCY AUDIT REPORT                        ");
-    info!("═══════════════════════════════════════════════════════════════");
+    log!("═══════════════════════════════════════════════════════════════");
+    log!("                    LATENCY AUDIT REPORT                        ");
+    log!("═══════════════════════════════════════════════════════════════");
     
-    println!("\n{}", serde_json::to_string_pretty(&report)?);
+    log!("{}", serde_json::to_string_pretty(&report)?);
 
     // Also log key metrics
-    info!("📈 PING STATS:");
-    info!("   Average RTT: {:.2}ms", report.ping_stats.avg_ms);
-    info!("   P99 RTT: {:.2}ms", report.ping_stats.p99_ms);
-    info!("   Std Dev: {:.2}ms", report.ping_stats.std_dev_ms);
+    log!("📈 PING STATS:");
+    log!("   Average RTT: {:.2}ms", report.ping_stats.avg_ms);
+    log!("   P99 RTT: {:.2}ms", report.ping_stats.p99_ms);
+    log!("   Std Dev: {:.2}ms", report.ping_stats.std_dev_ms);
     
-    info!("📦 BLOCK STATS:");
-    info!("   Blocks Received: {}", report.block_stats.blocks_received);
-    info!("   Avg Gap: {:.2}ms", report.block_stats.avg_gap_ms);
+    log!("📦 BLOCK STATS:");
+    log!("   Blocks Received: {}", report.block_stats.blocks_received);
+    log!("   Avg Gap: {:.2}ms", report.block_stats.avg_gap_ms);
     
-    info!("🖥️  CPU STATS:");
-    info!("   Baseline: {:.2}ms", report.cpu_stats.baseline_ms);
-    info!("   Max Slowdown: {:.1}%", report.cpu_stats.max_slowdown_percent);
-    info!("   Spike Count: {}", report.cpu_stats.spike_count);
+    log!("🖥️  CPU STATS:");
+    log!("   Baseline: {:.2}ms", report.cpu_stats.baseline_ms);
+    log!("   Max Slowdown: {:.1}%", report.cpu_stats.max_slowdown_percent);
+    log!("   Spike Count: {}", report.cpu_stats.spike_count);
     
-    info!("═══════════════════════════════════════════════════════════════");
-    info!("🎯 VERDICT: {}", report.verdict.overall);
-    info!("💡 {}", report.verdict.recommendation);
-    info!("═══════════════════════════════════════════════════════════════");
+    log!("═══════════════════════════════════════════════════════════════");
+    log!("🎯 VERDICT: {}", report.verdict.overall);
+    log!("💡 {}", report.verdict.recommendation);
+    log!("═══════════════════════════════════════════════════════════════");
 
     Ok(())
 }
@@ -290,7 +289,7 @@ async fn run_ping_loop(
     let request_id = Arc::new(AtomicU64::new(1));
     let mut interval = interval(Duration::from_millis(PING_INTERVAL_MS));
 
-    info!("✅ Ping loop connected to WebSocket");
+    log!("✅ Ping loop connected to WebSocket");
 
     while running.load(Ordering::SeqCst) {
         interval.tick().await;
@@ -307,7 +306,7 @@ async fn run_ping_loop(
         let msg = Message::Text(serde_json::to_string(&request)?);
         
         if let Err(e) = write.send(msg).await {
-            warn!("Failed to send ping: {}", e);
+            log!("⚠️ Failed to send ping: {}", e);
             continue;
         }
 
@@ -331,12 +330,12 @@ async fn run_ping_loop(
                 }
             }
             Ok(Some(Ok(_))) => {} // Ignore non-text messages
-            Ok(Some(Err(e))) => warn!("WebSocket error: {}", e),
+            Ok(Some(Err(e))) => log!("⚠️ WebSocket error: {}", e),
             Ok(None) => {
-                warn!("WebSocket closed");
+                log!("⚠️ WebSocket closed");
                 break;
             }
-            Err(_) => warn!("Ping timeout"),
+            Err(_) => log!("⚠️ Ping timeout"),
         }
     }
 
@@ -365,7 +364,7 @@ async fn run_block_subscription(
     });
 
     write.send(Message::Text(subscribe_request.to_string())).await?;
-    info!("✅ Subscribed to newHeads");
+    log!("✅ Subscribed to newHeads");
 
     let mut last_block_time: Option<Instant> = None;
     let start = Instant::now();
@@ -401,9 +400,9 @@ async fn run_block_subscription(
                 }
             }
             Ok(Some(Ok(_))) => {}
-            Ok(Some(Err(e))) => warn!("Block subscription error: {}", e),
+            Ok(Some(Err(e))) => log!("⚠️ Block subscription error: {}", e),
             Ok(None) => {
-                warn!("Block subscription closed");
+                log!("⚠️ Block subscription closed");
                 break;
             }
             Err(_) => {} // Timeout is normal if no blocks
@@ -422,7 +421,9 @@ fn run_cpu_stress_test(
     tx: mpsc::Sender<CpuStressResult>,
     running: Arc<AtomicBool>,
 ) {
-    info!("✅ CPU stress test started");
+    use std::io::Write;
+    println!("✅ CPU stress test started");
+    let _ = std::io::stdout().flush();
 
     while running.load(Ordering::SeqCst) {
         let start = Instant::now();
