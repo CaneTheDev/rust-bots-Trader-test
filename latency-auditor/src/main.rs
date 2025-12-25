@@ -147,9 +147,17 @@ type SharedStatus = Arc<RwLock<LiveStatus>>;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     dotenv::dotenv().ok();
 
-    let port: u16 = std::env::var("PORT").unwrap_or_else(|_| "3000".to_string()).parse().unwrap_or(3000);
+    let port: u16 = std::env::var("PORT")
+        .unwrap_or_else(|_| "3000".to_string())
+        .parse()
+        .unwrap_or(3000);
+    
     let wss_url = std::env::var("RPC_WSS_URL")
         .expect("RPC_WSS_URL must be set");
+
+    println!("🚀 Starting Latency Auditor");
+    println!("📡 Port: {}", port);
+    println!("📡 RPC URL configured: {}", mask_api_key(&wss_url));
 
     // Shared state for HTTP server
     let status: SharedStatus = Arc::new(RwLock::new(LiveStatus {
@@ -175,9 +183,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             }))
             .route("/health", get(|| async { "OK" }));
 
-        let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{}", port)).await.unwrap();
-        println!("🌐 HTTP server listening on port {}", port);
-        axum::serve(listener, app).await.unwrap();
+        let addr = format!("0.0.0.0:{}", port);
+        println!("🌐 Attempting to bind HTTP server to {}", addr);
+        
+        match tokio::net::TcpListener::bind(&addr).await {
+            Ok(listener) => {
+                println!("✅ HTTP server successfully bound to {}", addr);
+                if let Err(e) = axum::serve(listener, app).await {
+                    eprintln!("❌ Server error: {}", e);
+                }
+            }
+            Err(e) => {
+                eprintln!("❌ Failed to bind to {}: {}", addr, e);
+            }
+        }
     });
 
     // Give HTTP server time to start

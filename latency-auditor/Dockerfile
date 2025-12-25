@@ -38,4 +38,7 @@ COPY --from=builder /app/target/release/latency-auditor /app/latency-auditor
 
 ENV RUST_LOG=info
 
+# Expose port (Railway will set PORT env var)
+EXPOSE 8083
+
 CMD ["/app/latency-auditor"]
