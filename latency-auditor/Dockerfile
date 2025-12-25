@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy manifests first for dependency caching
-COPY Cargo.toml Cargo.lock* ./
+COPY latency-auditor/Cargo.toml latency-auditor/Cargo.lock* ./
 
 # Create dummy main.rs to build dependencies
 RUN mkdir src && echo "fn main() {}" > src/main.rs
@@ -19,7 +19,7 @@ RUN mkdir src && echo "fn main() {}" > src/main.rs
 RUN cargo build --release && rm -rf src
 
 # Copy actual source files
-COPY src ./src
+COPY latency-auditor/src ./src
 
 # Build release binary with cached dependencies
 RUN cargo build --release --bin latency-auditor
