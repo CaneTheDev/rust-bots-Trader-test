@@ -13,6 +13,7 @@ sha2 = "0.10"
 chrono = { version = "0.4", features = ["serde"] }
 url = "2.5"
 dotenv = "0.15"
+axum = "0.7"
 
 [profile.release]
 opt-level = 3
