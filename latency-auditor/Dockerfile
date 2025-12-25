@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy manifests first for dependency caching
-COPY Cargo.toml Cargo.lock ./
+COPY Cargo.toml Cargo.lock* ./
 
 # Create dummy main.rs to build dependencies
 RUN mkdir src && echo "fn main() {}" > src/main.rs
