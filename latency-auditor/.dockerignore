@@ -1,0 +1,7 @@
+target/
+.env
+*.log
+.git/
+.gitignore
+README.md
+dev-test.bat
