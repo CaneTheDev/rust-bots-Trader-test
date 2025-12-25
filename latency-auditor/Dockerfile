@@ -1,29 +1,39 @@
+# Build stage
 FROM rust:1.75-slim-bookworm as builder
 
 WORKDIR /app
 
-# Install dependencies for native-tls
+# Install build dependencies
 RUN apt-get update && apt-get install -y \
     pkg-config \
     libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy source
-COPY Cargo.toml Cargo.lock* ./
-COPY src ./src
+# Copy manifests first for dependency caching
+COPY Cargo.toml Cargo.lock ./
 
-RUN cargo build --release
+# Create dummy main.rs to build dependencies
+RUN mkdir src && echo "fn main() {}" > src/main.rs
+
+# Build dependencies only (cached layer)
+RUN cargo build --release && rm -rf src
+
+# Copy actual source files
+COPY . .
+
+# Build release binary with cached dependencies
+RUN cargo build --release --bin latency-auditor
 
 # Runtime stage
 FROM debian:bookworm-slim
 
 RUN apt-get update && apt-get install -y \
     ca-certificates \
-    libssl3 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
+# Copy binary from builder
 COPY --from=builder /app/target/release/latency-auditor /app/latency-auditor
 
 ENV RUST_LOG=info
