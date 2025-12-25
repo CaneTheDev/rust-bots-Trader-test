@@ -168,6 +168,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     add_log(&status, format!("🚀 Latency Auditor Starting"));
     add_log(&status, format!("📡 Target RPC: {}", mask_api_key(&wss_url)));
     add_log(&status, format!("⏱️  Test Duration: {} seconds", TEST_DURATION_SECS));
+    add_log(&status, format!("⏰ Test will complete at approximately {}", (Utc::now() + chrono::Duration::seconds(TEST_DURATION_SECS as i64)).format("%H:%M:%S UTC")));
 
     // Start HTTP server
     let http_status = status.clone();
@@ -310,6 +311,9 @@ async fn run_audit(wss_url: String, status: SharedStatus) -> Result<(), Box<dyn 
     let mut block_results: Vec<BlockArrival> = Vec::new();
     let mut cpu_results: Vec<CpuStressResult> = Vec::new();
 
+    let mut check_interval = interval(Duration::from_millis(500));
+    check_interval.tick().await; // First tick completes immediately
+
     loop {
         tokio::select! {
             Some(ping) = ping_rx.recv() => {
@@ -322,7 +326,7 @@ async fn run_audit(wss_url: String, status: SharedStatus) -> Result<(), Box<dyn 
             Some(cpu) = cpu_rx.recv() => {
                 cpu_results.push(cpu);
             }
-            _ = tokio::time::sleep(Duration::from_millis(500)) => {
+            _ = check_interval.tick() => {
                 let elapsed = test_start.elapsed().as_secs();
                 
                 // Update live status
@@ -335,6 +339,7 @@ async fn run_audit(wss_url: String, status: SharedStatus) -> Result<(), Box<dyn 
                 }
 
                 if elapsed >= TEST_DURATION_SECS {
+                    add_log(&status, format!("⏱️ {} seconds elapsed, stopping test...", elapsed));
                     running.store(false, Ordering::SeqCst);
                     break;
                 }
