@@ -3,6 +3,22 @@ name = "latency-auditor"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "latency-auditor"
+path = "src/bin/latency_auditor.rs"
+
+[[bin]]
+name = "monitor"
+path = "src/bin/monitor.rs"
+
+[[bin]]
+name = "discover"
+path = "src/bin/discover.rs"
+
+[[bin]]
+name = "liquidator"
+path = "src/main.rs"
+
 [dependencies]
 tokio = { version = "1.35", features = ["full", "rt-multi-thread", "time", "sync"] }
 tokio-tungstenite = { version = "0.21", features = ["native-tls"] }
@@ -14,6 +30,11 @@ chrono = { version = "0.4", features = ["serde"] }
 url = "2.5"
 dotenv = "0.15"
 axum = "0.7"
+ethers = "2.0"
+ethers-contract = "2.0"
+ethers-providers = "2.0"
+ethers-signers = "2.0"
+reqwest = { version = "0.11", features = ["json"] }
 
 [profile.release]
 opt-level = 3

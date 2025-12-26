@@ -1,0 +1,371 @@
+[
+  {
+    "address": "0x3f0296BF652e19bca772EC3dF08b32732F93014A",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 654415.03,
+    "pair": "VIRTUAL/WETH",
+    "pool_type": "V2",
+    "volume_24h": 3251964.95
+  },
+  {
+    "address": "0x6cDcb1C4A4D1C3C6d054b27AC5B77e89eAFb971d",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 33010498.6,
+    "pair": "AERO/USDC",
+    "pool_type": "V2",
+    "volume_24h": 1497140.62
+  },
+  {
+    "address": "0x9c087Eb773291e50CF6c6a90ef0F4500e349B903",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 536678.74,
+    "pair": "VIRTUAL/WETH",
+    "pool_type": "V3",
+    "volume_24h": 1054547.22
+  },
+  {
+    "address": "0x20CB8f872ae894F7c9e32e621C186e5AFCe82Fd0",
+    "dex": "pancakeswap",
+    "fee_tier": "0.25%",
+    "liquidity_usd": 405189.02,
+    "pair": "AERO/WETH",
+    "pool_type": "V2",
+    "volume_24h": 759078.15
+  },
+  {
+    "address": "0xC200F21EfE67c7F41B81A854c26F9cdA80593065",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 369995.28,
+    "pair": "VIRTUAL/WETH",
+    "pool_type": "V2",
+    "volume_24h": 554052.32
+  },
+  {
+    "address": "0xdFe5F275020def30993f042174Fc2D335678b626",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 1198740.81,
+    "pair": "AERO/cbBTC",
+    "pool_type": "V2",
+    "volume_24h": 506706.58
+  },
+  {
+    "address": "0x529d2863a1521d0b57db028168fdE2E97120017C",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 806231.5,
+    "pair": "VIRTUAL/USDC",
+    "pool_type": "V3",
+    "volume_24h": 419713.78
+  },
+  {
+    "address": "0x7CB770D0513c30e0CB45E4899e4a2CbEEd6F9830",
+    "dex": "pancakeswap",
+    "fee_tier": "0.25%",
+    "liquidity_usd": 205547.44,
+    "pair": "VIRTUAL/USDC",
+    "pool_type": "V2",
+    "volume_24h": 417801.16
+  },
+  {
+    "address": "0x82321f3BEB69f503380D6B233857d5C43562e2D0",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 2655423.88,
+    "pair": "AERO/WETH",
+    "pool_type": "V2",
+    "volume_24h": 341089.88
+  },
+  {
+    "address": "0xc221293c1517EC1834D346761E937298E6004635",
+    "dex": "0x03C01Acae3D0173a93d819efDc832C7C4F153B06",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 187405.32,
+    "pair": "VIRTUAL/WETH",
+    "pool_type": "V2",
+    "volume_24h": 221338.62
+  },
+  {
+    "address": "0xE5B5f522E98B5a2baAe212d4dA66b865B781DB97",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 234763.05,
+    "pair": "AERO/USDC",
+    "pool_type": "V3",
+    "volume_24h": 194719.47
+  },
+  {
+    "address": "0x3d5D143381916280ff91407FeBEB52f2b60f33Cf",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 1002899.38,
+    "pair": "AERO/WETH",
+    "pool_type": "V3",
+    "volume_24h": 133683.7
+  },
+  {
+    "address": "0x7f670f78B17dEC44d5Ef68a48740b6f8849cc2e6",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 3772356.95,
+    "pair": "AERO/WETH",
+    "pool_type": "V2",
+    "volume_24h": 122674.73
+  },
+  {
+    "address": "0x66660fBCd3829932586A5AF62093eE75faa91F9F",
+    "dex": "pancakeswap",
+    "fee_tier": "0.25%",
+    "liquidity_usd": 20016.86,
+    "pair": "VIRTUAL/WETH",
+    "pool_type": "V2",
+    "volume_24h": 76551.64
+  },
+  {
+    "address": "0xE31c372a7Af875b3B5E0F3713B17ef51556da667",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 1341815.59,
+    "pair": "VIRTUAL/WETH",
+    "pool_type": "V3",
+    "volume_24h": 71990.44
+  },
+  {
+    "address": "0xBE00fF35AF70E8415D0eB605a286D8A45466A4c1",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 2057652.58,
+    "pair": "AERO/USDC",
+    "pool_type": "V2",
+    "volume_24h": 69160.58
+  },
+  {
+    "address": "0x21594b992F68495dD28d605834b58889d0a727c7",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 5218605.9,
+    "pair": "VIRTUAL/WETH",
+    "pool_type": "V2",
+    "volume_24h": 67586.55
+  },
+  {
+    "address": "0x29a857629E58C531f351Bb7fbd86aa46Ef6aF0B7",
+    "dex": "pancakeswap",
+    "fee_tier": "0.25%",
+    "liquidity_usd": 55761.24,
+    "pair": "AERO/USDC",
+    "pool_type": "V2",
+    "volume_24h": 63804.33
+  },
+  {
+    "address": "0xa4FDd479eda160671636e2eCF8f993Cbf86258a8",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 173716.82,
+    "pair": "AERO/USDC",
+    "pool_type": "V2",
+    "volume_24h": 44823.45
+  },
+  {
+    "address": "0x263dd54f58cedff35c85a98a61fda06f3bba55a567de33fe9f884d851652e37a",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 56092.69,
+    "pair": "VIRTUAL/ETH",
+    "pool_type": "V3",
+    "volume_24h": 42560.26
+  },
+  {
+    "address": "0x1D4daB3f27C7F656b6323C1D6Ef713b48A8f72F1",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 296092.63,
+    "pair": "VIRTUAL/WETH",
+    "pool_type": "V3",
+    "volume_24h": 38458.25
+  },
+  {
+    "address": "0xD5bdD66a87462a608edd28bDec91b88E16409f62",
+    "dex": "pancakeswap",
+    "fee_tier": "0.25%",
+    "liquidity_usd": 35486.13,
+    "pair": "VIRTUAL/WETH",
+    "pool_type": "V2",
+    "volume_24h": 23151.66
+  },
+  {
+    "address": "0x088c39ee29fC30DF8Adc394e9f7dEa33E3A26507",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 51891.27,
+    "pair": "doginme/WETH",
+    "pool_type": "V2",
+    "volume_24h": 17677.75
+  },
+  {
+    "address": "0xe268e533bf3b4df49b2951ce7b39345f814e7eb93415eda1d39a9c3a57662ec8",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 99755.58,
+    "pair": "AERO/USDC",
+    "pool_type": "V3",
+    "volume_24h": 14934.33
+  },
+  {
+    "address": "0x0D5959a52E7004b601f0bE70618D01aC3cDce976",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 350608.17,
+    "pair": "AERO/WETH",
+    "pool_type": "V3",
+    "volume_24h": 10810.31
+  },
+  {
+    "address": "0x2223F9FE624F69Da4D8256A7bCc9104FBA7F8f75",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 263596.98,
+    "pair": "AERO/USDbC",
+    "pool_type": "V2",
+    "volume_24h": 4723.64
+  },
+  {
+    "address": "0x368ea6F645DeB6D1a8692fE93C550D2834150865",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 90001.65,
+    "pair": "TOSHI/VIRTUAL",
+    "pool_type": "V3",
+    "volume_24h": 4289.03
+  },
+  {
+    "address": "0xADE9BcD4b968EE26Bed102dd43A55f6A8c2416df",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 1883418.22,
+    "pair": "doginme/WETH",
+    "pool_type": "V3",
+    "volume_24h": 4240.41
+  },
+  {
+    "address": "0x11eca6cb59e4f4cbff4f0c280c447fc1e207cf62f300ce4bc63a33cae605b482",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 99209.8,
+    "pair": "VIRTUAL/ETH",
+    "pool_type": "V3",
+    "volume_24h": 3939.55
+  },
+  {
+    "address": "0x565aecF84b5d30a6E79a5CEf3f0dA0Fc4280dEBC",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 62368.55,
+    "pair": "AERO/wstETH",
+    "pool_type": "V2",
+    "volume_24h": 3823.6
+  },
+  {
+    "address": "0x56a0cd87d81cc71184a4b2dd42964591bf351d0cfdded03f9bc75b7b559344ce",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 90498.27,
+    "pair": "AERO/USDC",
+    "pool_type": "V3",
+    "volume_24h": 3590.14
+  },
+  {
+    "address": "0x43BBb129b56A998732767725A183b7a566843dBA",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 35145.18,
+    "pair": "BRETT/AERO",
+    "pool_type": "V2",
+    "volume_24h": 3198.24
+  },
+  {
+    "address": "0x5dd190c0949646fe9702d439ccf32936134e7da9947af46f418ae285c1032719",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 50246.59,
+    "pair": "AERO/ETH",
+    "pool_type": "V3",
+    "volume_24h": 2530.04
+  },
+  {
+    "address": "0x27402edf3c6a6d6b5a279dfc7a2c8cbacebbfdfc3559f7c03d6971b09126a9f3",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 107217.12,
+    "pair": "BRETT/ETH",
+    "pool_type": "V3",
+    "volume_24h": 2187.37
+  },
+  {
+    "address": "0x139E9f235588A9720e7Eab045da29dC781c4b658",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 151393.46,
+    "pair": "doginme/WETH",
+    "pool_type": "V2",
+    "volume_24h": 1773.54
+  },
+  {
+    "address": "0x1ef85201ffa71dacfc4691564ccb04e8a33137859da32661e4acc1fde20b41a5",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 9060.65,
+    "pair": "BRETT/ETH",
+    "pool_type": "V3",
+    "volume_24h": 1308.12
+  },
+  {
+    "address": "0xFfa80952B3800240F11AD25E45e8d3E5C1593E70",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 7828.03,
+    "pair": "BRETT/AERO",
+    "pool_type": "V2",
+    "volume_24h": 1073.9
+  },
+  {
+    "address": "0x8e0A7d4018fb2674346d5742055174f899Fe1826",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 49658.1,
+    "pair": "VIRTUAL/WETH",
+    "pool_type": "V3",
+    "volume_24h": 676.0
+  },
+  {
+    "address": "0x4660Ff55A4Db144734AE76550Ee3093e0BA7F8D1",
+    "dex": "aerodrome",
+    "fee_tier": "0.30%",
+    "liquidity_usd": 15431.54,
+    "pair": "TOSHI/AERO",
+    "pool_type": "V2",
+    "volume_24h": 620.77
+  },
+  {
+    "address": "0xd34903c3f489aca13e44638c9248d37c1ce6569f31a83f4b8987fdb30595cc9a",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 46327.97,
+    "pair": "TOSHI/ETH",
+    "pool_type": "V3",
+    "volume_24h": 267.51
+  },
+  {
+    "address": "0xee381526b93d418077a9d1b9c9b495a3d135410af9a58bc2a5f512fb7b61cbf7",
+    "dex": "uniswap",
+    "fee_tier": "1.0%",
+    "liquidity_usd": 10138.13,
+    "pair": "DEGEN/ETH",
+    "pool_type": "V3",
+    "volume_24h": 221.46
+  }
+]
